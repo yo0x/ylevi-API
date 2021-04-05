@@ -30,10 +30,10 @@ router.post("/", async (req, res) => {
   }
 });
 //Specific post
-router.get("/:postId", async (req, res) => {
+router.get("/:IDnumber", async (req, res) => {
   //console.log(req.params.postId);
   try {
-    const projectSpe = await ProjMo.findById(req.params.postId);
+    const projectSpe = await ProjMo.find({IDnumber:{'$regex':req.params.IDnumber}});
     res.json(projectSpe);
   } catch (err) {
     res.json({ message: err });
