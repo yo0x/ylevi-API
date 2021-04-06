@@ -6,6 +6,12 @@ const cors = require('cors');
 require("dotenv/config");
 //Middlewares
 app.use(cors());
+app.use(function(req,res,next){
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+  
+});
 //import routes
 const projRoute = require('./routes/projectsr');
 app.use(bodyParser.json());
