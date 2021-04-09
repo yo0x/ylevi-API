@@ -1,11 +1,11 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const app = express();
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const app = express();
 require("dotenv/config");
 //Middlewares
-app.use(cors());
+// app.use(cors());
 app.use(function(req,res,next){
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -15,12 +15,12 @@ app.use(function(req,res,next){
 //import routes
 const projRoute = require('./routes/projectsr');
 app.use(bodyParser.json());
-app.use('/projects', projRoute);
+app.use('/projects', cors(), projRoute);
 //Routes
-app.get("/yonor", (req, res) => {
+app.get("/yonor",cors(), (req, res) => {
   res.send("Sir yonor top dev");
 });
-app.get("/posts", (req, res) => {
+app.get("/posts",cors(), (req, res) => {
   res.send("We are on home");
 });
 //Connect to DB
