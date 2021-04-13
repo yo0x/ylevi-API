@@ -1,7 +1,7 @@
 {
-  "name": "p_backend",
+  "name": "yleviapp",
   "version": "1.0.0",
-  "description": "Backend for the portafolio app",
+  "description": "Backend for the ylevi crm app",
   "main": "index.js",
   "scripts": {
     "start": "nodemon index.js"

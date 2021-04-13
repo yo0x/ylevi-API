@@ -5,8 +5,9 @@ const cors = require('cors');
 const app = express();
 require("dotenv/config");
 //Middlewares
-var whitelist = ['http://ylevigroup.com','https://ylevigroup.com','https://scrm.ylevigroup.com', 'http://scrm.ylevigroup.com', 'https://localhost', 'http://localhost','http://ylevigroup.com/dbb','https://ylevigroup.com/dbb']
-app.use(cors(whitelist));
+//var whitelist = ['http://ylevigroup.com','https://ylevigroup.com','https://scrm.ylevigroup.com', 'http://scrm.ylevigroup.com', 'https://localhost', 'http://localhost','http://ylevigroup.com/dbb','https://ylevigroup.com/dbb','*']
+//app.use(cors(whitelist));
+app.use(cors());
 app.use(function(req,res,next){
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
