@@ -1,9 +1,17 @@
 const express = require("express");
+var fs = require('fs');
+var http = require('http');
+var https = require('https');
 const mongoose = require("mongoose");
 const bodyParser = require('body-parser');
 const cors = require('cors');
+
+var privateKey  = fs.readFileSync('sslcert/server.key', 'utf8');
+var certificate = fs.readFileSync('sslcert/server.crt', 'utf8');
+var credentials = {key: privateKey, cert: certificate};
 const app = express();
 require("dotenv/config");
+
 //Middlewares
 //var whitelist = ['http://ylevigroup.com','https://ylevigroup.com','https://scrm.ylevigroup.com', 'http://scrm.ylevigroup.com', 'https://localhost', 'http://localhost','http://ylevigroup.com/dbb','https://ylevigroup.com/dbb','*']
 //app.use(cors(whitelist));
@@ -29,10 +37,18 @@ app.get("/posts", (req, res) => {
 mongoose.connect(process.env.DB_CONNECION, { useNewUrlParser: true, useUnifiedTopology: true } , () =>
   console.log("Connected to db")
 );
-
+var httpServer = http.createServer(app);
+var httpsServer = https.createServer(credentials, app);
 //Listen
 //app.listen(process.env.PORT || 3000);
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log(`Our app is running on port ${ PORT }`);
+const PORT_http = process.env.PORT || 3000;
+const PORT_htts = process.env.PORT || 3001;
+
+httpServer.listen(PORT_http, () => {
+    console.log(`Our http app is running on port ${ PORT_http }`);
 });
+
+httpsServer.listen(PORT_htts, () => {
+  console.log(`Our https app is running on port ${ PORT_htts }`);
+});
+
